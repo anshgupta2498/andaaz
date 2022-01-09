@@ -24,6 +24,7 @@ exports.login = async(req, res, next) => {
     }
     const token = this.signToken(user._id);
     // user.token = token
+    delete user.password
     return res.status(200).json({ message: 'Log In Successful!', user, token });
 }
 
