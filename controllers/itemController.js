@@ -20,7 +20,12 @@ exports.getItemById = async(req, res, next) => {
 }
 
 exports.getAllItems = async(req, res, next) => {
-
+    try {
+        const items = await Item.find({})
+        return res.status(200).json({ message: 'Items found', items })
+    } catch (e) {
+        res.status(404).json({ message: 'No Items found' });
+    }
 }
 
 exports.getCategorizedItems = async(req, res, next) => {
