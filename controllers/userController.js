@@ -3,9 +3,7 @@ const mongoose = require('mongoose');
 exports.getUserById = async(req, res, next) => {
     try {
         const user = await User.findById(req.params.id);
-        console.log(user);
         // const result = await user.matchPassword(user.password, "hahaha");
-        console.log(result);
         res.status(200).json({
             status: 'OK',
             message: `Showing user with id: ${req.params.id}`,
@@ -17,13 +15,11 @@ exports.getUserById = async(req, res, next) => {
 }
 
 exports.addToCart = async(req, res, next) => {
-    console.log(req.body.itemId);
     try {
         const user = await User.findOneAndUpdate({ email: req.body.email }, { $push: { cart: { itemId: mongoose.Types.ObjectId(req.body.itemId) } } }, {
             new: true,
             runValidators: true
         });
-        console.log(user)
         res.status(200).json({
             message: `Added to cart`,
             user
@@ -34,14 +30,11 @@ exports.addToCart = async(req, res, next) => {
 }
 
 exports.updateMe = async(req, res, next) => {
-    console.log("in")
-    console.log(req.body.cart);
     try {
         const user = await User.findByIdAndUpdate(req.body._id, req.body, {
             new: true,
             runValidators: true
         });
-        console.log(user)
         res.status(200).json({
             message: `Updated User`,
             user

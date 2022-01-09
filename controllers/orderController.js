@@ -32,7 +32,6 @@ exports.createObj = async(req, res, next) => {
     order.shippingAddress = req.body.shippingAddress
     try {
         const order_created = await Order.create(req.body)
-        console.log(order_created)
         return res.status(200).json({
             message: `Order placed`,
             order_created
@@ -44,10 +43,8 @@ exports.createObj = async(req, res, next) => {
 
 
 exports.getOrderById = async(req, res, next) => {
-    console.log(req.params.id)
     var order_id = req.params.id
     const order = await Order.findById(order_id).populate('item.item_id')
-    console.log(order)
     return res.status(200).json({
         message: `Order placed`,
         order

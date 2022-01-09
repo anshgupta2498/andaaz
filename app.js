@@ -12,9 +12,7 @@ app.use(express.json())
 app.use(cors());
 const dotenv = require('dotenv');
 dotenv.config({ path: './config.env' });
-// console.log(process.env)
 const db = process.env.DATABASE_ATLAS.replace('<DB_PASSWORD>', process.env.DB_PASSWORD)
-    // console.log(db)
 app.listen(port, () => {
     console.log("Got connected to port " + port);
 })
@@ -24,12 +22,10 @@ mongoose
         useNewUrlParser: true
     })
     .then((con) => {
-        // console.log(con)
         console.log("Connection established successfully!!!");
     })
     .catch((err) => {
         console.log("Oops! Some error occured");
-        console.log(err);
     });
 
 app.use('/api/v1/users', userRouter)
