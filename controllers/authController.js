@@ -61,9 +61,8 @@ exports.verifyToken = async(req, res, next) => {
             return res.status(400).json({ message: 'Token Not Found' })
         }
         const token = req.headers.authorization.split(' ')[1];
+        const decoded = await promisify(jwt.verify)(token, process.env.JSON_SECRET).catch(err => console.log(err.message));
 
-        // 2. VERIFY THE TOKEN - THAT THE TOKEN HAS NOT BEEN TAMPERED
-        // if valid- returns the payload (id,issuedAt,expireOn) else returns nothing
         if (!decoded)
             return res.status(400).json({ message: `The token was either invalid or expired` });
         const currentUser = await User.findById(decoded._id);
